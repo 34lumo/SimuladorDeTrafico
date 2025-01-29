@@ -91,7 +91,6 @@ public abstract class Road extends SimulatedObject {
     }
 
 
-
     public abstract void reduceTotalContamination();
 
     public abstract void updateSpeedLimit();

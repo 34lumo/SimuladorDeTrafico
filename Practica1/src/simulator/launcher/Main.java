@@ -29,7 +29,7 @@ public class Main {
 		CommandLineParser parser = new DefaultParser();
 		try {
 			CommandLine line = parser.parse(cmdLineOptions, args);
-			parseHelpOption(line, cmdLineOptions);
+			parseHelpOption(line, cmdLineOptions); 
 			parseInFileOption(line);
 			parseOutFileOption(line);
 
