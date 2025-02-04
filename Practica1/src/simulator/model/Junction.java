@@ -12,11 +12,12 @@ public class Junction extends SimulatedObject {
     private List<Road> incomingRoads;
     private Map<Junction, Road> outgoingRoads;
     private List<List<Vehicle>> queues;
-    private Map<Road, List<Vehicle>> roadToQueueMap;
-    private int greenLightIndex;
+    private Map<Road, List<Vehicle>> roadToQueueMap; //carretera cola
+    private int greenLightIndex; //Representa el índice de la carretera entrante que actualmente tiene el semáforo en verde en ese cruce
     private int lastSwitchingTime;
-    private LightSwitchingStrategy lsStrategy;
-    private DequeuingStrategy dqStrategy;
+    private LightSwitchingStrategy lsStrategy; //estrategia para cambiar de color los semáforos.
+    private DequeuingStrategy dqStrategy; //una estrategia para eliminar vehı́culos de las colas.
+
     private int xCoor;
     private int yCoor;
 
@@ -35,56 +36,56 @@ public class Junction extends SimulatedObject {
         this.outgoingRoads = new HashMap<>();
         this.queues = new ArrayList<>();
         this.roadToQueueMap = new HashMap<>();
-        this.greenLightIndex = -1; // Initially, all signals are red.
+        this.greenLightIndex = -1; //De inicio todos los semaforos estan en rojo 
         this.lastSwitchingTime = 0;
     }
 
     public void addIncomingRoad(Road r) {
         if (r.getDest() != this)
-            throw new IllegalArgumentException("Incoming road's destination must be this junction.");
-        incomingRoads.add(r);
-        List<Vehicle> queue = new LinkedList<>();
-        queues.add(queue);
+            throw new IllegalArgumentException("El destino de la carretera entrante debe ser este cruce.");
+        incomingRoads.add(r); //añade esa carretera al final de la lista de carreteras entrantes
+        List<Vehicle> queue = new LinkedList<>(); //lista vacia de vehiculos
+        queues.add(queue); //añadimos esa lista vacia de vehiculos, a la lista de colas
         roadToQueueMap.put(r, queue);
     }
 
     public void addOutgoingRoad(Road r) {
         if (outgoingRoads.containsKey(r.getDest()))
-            throw new IllegalArgumentException("There is already an outgoing road to the destination junction.");
+            throw new IllegalArgumentException("Ya existe una carretera saliente hacia el cruce destino."); //para que no haya dos carreteras que salgan del msimo cruce a otro igual (serian la misma carretera practicamente)
         if (r.getSrc() != this)
-            throw new IllegalArgumentException("Outgoing road's source must be this junction.");
+            throw new IllegalArgumentException("El origen de la carretera saliente debe ser este cruce.");
         outgoingRoads.put(r.getDest(), r);
     }
 
     public void enter(Vehicle v) {
-        Road r = v.getRoad();
-        List<Vehicle> queue = roadToQueueMap.get(r);
+        Road r = v.getRoad(); //nos da la carretera en la que esta este vehiculo
+        List<Vehicle> queue = roadToQueueMap.get(r); //encuentra la cola a la carretera r, que este esperando a ese cruce.
         if (queue == null)
-            throw new IllegalArgumentException("Vehicle's road is not an incoming road to this junction.");
-        queue.add(v);
+            throw new IllegalArgumentException("La carretera del vehículo no es una carretera entrante a este cruce."); //Si por alguna razón un vehículo intenta entrar a una carretera que no tiene una cola asociada en ese cruce 
+        queue.add(v); //añade el vehiculo a la cola
     }
 
-    public Road roadTo(Junction j) {
+    public Road roadTo(Junction j) { //está diseñado para devolver la carretera específica que conecta el cruce actual (this) con otro cruce específico j que se pasa como parámetro.
         return outgoingRoads.get(j);
     }
 
     @Override
-    public void advance(int time) {
-        // Dequeue vehicles according to the current green light
-        if (greenLightIndex >= 0) {
-            List<Vehicle> queue = queues.get(greenLightIndex);
-            List<Vehicle> vehiclesToMove = dqStrategy.dequeue(queue);
+    public void advance(int currTime) {
+        // Usa la estrategia de extracción de la cola para calcular la lista de vehículos que deben avanzar
+        if (greenLightIndex > -1) {
+            List<Vehicle> queue = queues.get(greenLightIndex); //devuelve la lista con semaforo en verde
+            List<Vehicle> vehiclesToMove = dqStrategy.dequeue(queue); //dqStrategy decide la estrategia para hacer dequing, y dequeue da la lista de los vehiuclos que avanzaran en ese verde
             for (Vehicle v : vehiclesToMove) {
                 v.moveToNextRoad();
                 queue.remove(v);
             }
         }
 
-        // Determine the next green light
-        int nextGreen = lsStrategy.chooseNextGreen(incomingRoads, queues, greenLightIndex, lastSwitchingTime, time);
+        // Usa la estrategia de cambio de semáforo para calcular el índice de la siguiente carretera a poner en verde
+        int nextGreen = lsStrategy.chooseNextGreen(incomingRoads, queues, greenLightIndex, lastSwitchingTime, currTime);
         if (nextGreen != greenLightIndex) {
             greenLightIndex = nextGreen;
-            lastSwitchingTime = time;
+            lastSwitchingTime = currTime;
         }
     }
 
