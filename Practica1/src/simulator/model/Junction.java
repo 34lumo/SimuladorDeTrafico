@@ -79,7 +79,7 @@ public class Junction extends SimulatedObject {
                 v.moveToNextRoad();
                 queue.remove(v);
             }
-        }
+        }  //s
 
         // Usa la estrategia de cambio de semáforo para calcular el índice de la siguiente carretera a poner en verde
         int nextGreen = lsStrategy.chooseNextGreen(incomingRoads, queues, greenLightIndex, lastSwitchingTime, currTime);
