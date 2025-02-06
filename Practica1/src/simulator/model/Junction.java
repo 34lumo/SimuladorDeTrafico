@@ -20,6 +20,7 @@ public class Junction extends SimulatedObject {
 
     private int xCoor;
     private int yCoor;
+   
 
     public Junction(String id, LightSwitchingStrategy lsStrategy, DequeuingStrategy dqStrategy, int xCoor, int yCoor) {
         super(id);
@@ -33,7 +34,7 @@ public class Junction extends SimulatedObject {
         this.xCoor = xCoor;
         this.yCoor = yCoor;
         this.incomingRoads = new ArrayList<>();
-        this.outgoingRoads = new HashMap<>();
+        this.outgoingRoads = new HashMap<>(); 
         this.queues = new ArrayList<>();
         this.roadToQueueMap = new HashMap<>();
         this.greenLightIndex = -1; //De inicio todos los semaforos estan en rojo 
