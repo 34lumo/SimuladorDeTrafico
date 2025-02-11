@@ -28,7 +28,7 @@ public class RoadMap {
         this.roadMap = new HashMap<>();
         this.vehicleMap = new HashMap<>();
     }
-
+//
     public void addJunction(Junction j) {
         if (junctionMap.containsKey(j.getId()))
             throw new IllegalArgumentException("Un cruce con el mismo identificador ya existe.");
