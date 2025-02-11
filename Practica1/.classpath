@@ -6,7 +6,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="/Users/lumo/Documents/Universidad/TP2/Practica1/lib/json.jar"/>
-	<classpathentry kind="lib" path="/Users/lumo/Documents/Universidad/TP2/Practica1/lib/commons-cli-1.4.jar"/>
+	<classpathentry kind="lib" path="/Users/lumo/git/Practica1/Practica1/lib/commons-cli-1.4.jar"/>
+	<classpathentry kind="lib" path="/Users/lumo/git/Practica1/Practica1/lib/json.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
