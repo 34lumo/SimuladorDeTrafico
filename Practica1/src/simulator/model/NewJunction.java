@@ -1,9 +1,4 @@
-package simulator.model.Event;
-
-import simulator.model.DequeuingStrategy;
-import simulator.model.Junction;
-import simulator.model.LightSwitchingStrategy;
-import simulator.model.RoadMap;
+package simulator.model;
 
 class NewJunction extends Event {
     private String id;

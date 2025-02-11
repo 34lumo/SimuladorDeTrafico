@@ -1,10 +1,8 @@
-package simulator.model.Event;
+package simulator.model;
 
 import java.util.List;
 
 import simulator.misc.Pair;
-import simulator.model.RoadMap;
-import simulator.model.Vehicle;
 
 public class SetContaminationClass extends Event {
     private List<Pair<String, Integer>> cs;
