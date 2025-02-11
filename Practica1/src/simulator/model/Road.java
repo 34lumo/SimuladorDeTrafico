@@ -15,10 +15,10 @@ public abstract class Road extends SimulatedObject {
 	protected Weather weather; // Condiciones meteorológicas actuales en la carretera
 	protected int totalCO2; // Total de CO2 acumulado en la carretera, protegido para modificación en subclases
 	protected List<Vehicle> vehicles; // Lista de vehículos en la carretera, ordenada por ubicación
-    public Road(String id, Junction srcJunc, Junction destJunc, int maxSpeed, int contLimit, int length, Weather weather) {
+    protected Road(String id, Junction srcJunc, Junction destJunc, int maxSpeed, int contLimit, int length, Weather weather) {
         super(id);
         if (srcJunc == null || destJunc == null || weather == null)
-            throw new IllegalArgumentException("El tiempo que haga y las intersecciones no pueden ser nunca negativas.");
+            throw new IllegalArgumentException("El tiempo que haga y las intersecciones no pueden ser nunca nulas.");
         if (maxSpeed <= 0 || length <= 0 || contLimit < 0)
             throw new IllegalArgumentException("La velocidad y el tamaño deben ser positivas, La contaminacion debe ser mayor que 0.");
 

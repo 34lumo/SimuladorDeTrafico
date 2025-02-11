@@ -22,7 +22,7 @@ public class Junction extends SimulatedObject {
     private int yCoor;
    
 
-    public Junction(String id, LightSwitchingStrategy lsStrategy, DequeuingStrategy dqStrategy, int xCoor, int yCoor) {
+    protected Junction(String id, LightSwitchingStrategy lsStrategy, DequeuingStrategy dqStrategy, int xCoor, int yCoor) {
         super(id);
         if (lsStrategy == null || dqStrategy == null)
             throw new NullPointerException("Strategies cannot be null.");
