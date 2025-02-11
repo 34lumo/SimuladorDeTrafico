@@ -17,10 +17,10 @@ public class RoundRobinStrategy implements LightSwitchingStrategy {
         else if (currGreen == -1) 
         	return 0; // Si todos están en rojo, enciende el primero.
 
-        else if (currTime - lastSwitchingTime < timeSlot) {
+        else if (currTime - lastSwitchingTime < timeSlot) { //3 
             return currGreen; // Mantén el semáforo actual si aún no ha pasado el timeSlot.
         }
-        else
+        else 
         return (currGreen + 1) % roads.size(); // Cambia al siguiente semáforo en orden circular.
     }
 }

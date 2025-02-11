@@ -24,7 +24,7 @@ public class Main {
 		//
 		Options cmdLineOptions = buildOptions();
 
-		// parse the command line as provided in args
+		// parse the command line as provided in args 
 		//
 		CommandLineParser parser = new DefaultParser();
 		try {

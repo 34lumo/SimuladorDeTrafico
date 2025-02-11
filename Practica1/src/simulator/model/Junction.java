@@ -22,7 +22,7 @@ public class Junction extends SimulatedObject {
     private int yCoor;
    
 
-    public Junction(String id, LightSwitchingStrategy lsStrategy, DequeuingStrategy dqStrategy, int xCoor, int yCoor) {
+    protected Junction(String id, LightSwitchingStrategy lsStrategy, DequeuingStrategy dqStrategy, int xCoor, int yCoor) {
         super(id);
         if (lsStrategy == null || dqStrategy == null)
             throw new NullPointerException("Strategies cannot be null.");
@@ -40,7 +40,9 @@ public class Junction extends SimulatedObject {
         this.greenLightIndex = -1; //De inicio todos los semaforos estan en rojo 
         this.lastSwitchingTime = 0;
     }
-
+    
+    
+   
     public void addIncomingRoad(Road r) {
         if (r.getDest() != this)
             throw new IllegalArgumentException("El destino de la carretera entrante debe ser este cruce.");

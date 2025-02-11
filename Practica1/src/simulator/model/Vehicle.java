@@ -16,6 +16,7 @@ public class Vehicle extends SimulatedObject {
     private int location;
     private int totalCO2;
     private int totalDistance;
+    
 
     public Vehicle(String id, int maxSpeed, int contClass, List<Junction> itinerary) {
         super(id);

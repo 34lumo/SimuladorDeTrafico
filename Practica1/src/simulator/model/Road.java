@@ -3,6 +3,8 @@ package simulator.model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public abstract class Road extends SimulatedObject {
 	//Circular por esa carretera es ir desde el cruce origen al cruce destino.
@@ -18,7 +20,7 @@ public abstract class Road extends SimulatedObject {
     public Road(String id, Junction srcJunc, Junction destJunc, int maxSpeed, int contLimit, int length, Weather weather) {
         super(id);
         if (srcJunc == null || destJunc == null || weather == null)
-            throw new IllegalArgumentException("El tiempo que haga y las intersecciones no pueden ser nunca negativas.");
+            throw new IllegalArgumentException("El tiempo que haga y las intersecciones no pueden ser nunca nulas.");
         if (maxSpeed <= 0 || length <= 0 || contLimit < 0)
             throw new IllegalArgumentException("La velocidad y el tamaño deben ser positivas, La contaminacion debe ser mayor que 0.");
 
