@@ -16,7 +16,7 @@ public class Vehicle extends SimulatedObject {
     private int location;
     private int totalCO2;
     private int totalDistance;
-    
+    private int itineraryIndex;
 
     public Vehicle(String id, int maxSpeed, int contClass, List<Junction> itinerary) {
         super(id);
@@ -30,6 +30,7 @@ public class Vehicle extends SimulatedObject {
         this.currentSpeed = 0;
         this.totalCO2 = 0;
         this.totalDistance = 0;
+        this.itineraryIndex = 0;
     }
 
     public void setSpeed(int s) {
@@ -59,23 +60,30 @@ public class Vehicle extends SimulatedObject {
         }
     }
 
-    public void moveToNextRoad() {
-        if (this.status != VehicleStatus.PENDING && this.status != VehicleStatus.WAITING) {
-            throw new IllegalStateException("Vehicle must be in PENDING or WAITING state.");
-        }
-
-        if (road != null) {
-            road.exit(this);
-        }
-
-        // Move to the next road
-        Junction nextJunction = itinerary.get(0); // Get the first junction in the itinerary
-        Road nextRoad = nextJunction.roadTo(itinerary.get(1)); // Find the next road
-        this.road = nextRoad;
-        nextRoad.enter(this);
-        this.status = VehicleStatus.TRAVELING;
-        this.location = 0;
-    }
+    	public void moveToNextRoad() {
+    	    if (this.status != VehicleStatus.PENDING && this.status != VehicleStatus.WAITING) {
+    	        throw new UnsupportedOperationException(
+    	                "moveToNextRoad for vehicle '" + getId() + "' failed, the vehicle's status must be PENDING or WAITING.");
+    	    }
+    	    
+    	    //Si el vehículo está en una carretera, salir de ella
+    	    if (road != null) {
+    	        road.exit(this);
+    	    }
+    	    
+    	    //Comprobar si el vehículo ha llegado al final de su itinerario
+    	    if (itineraryIndex == itinerary.size() - 1) {
+    	        status = VehicleStatus.ARRIVED;
+    	        road = null;
+    	        location = 0;
+    	    } else {
+    	        status = VehicleStatus.TRAVELING;
+    	        road = itinerary.get(itineraryIndex).roadTo(itinerary.get(itineraryIndex + 1));
+    	        location = 0;
+    	        road.enter(this);
+    	        itineraryIndex++;
+    	    }
+    	}
 
     public JSONObject report() {
         JSONObject jo = new JSONObject();

@@ -52,6 +52,7 @@ public class Junction extends SimulatedObject {
         roadToQueueMap.put(r, queue);
     }
 
+    
     public void addOutgoingRoad(Road r) {
         if (outgoingRoads.containsKey(r.getDest()))
             throw new IllegalArgumentException("Ya existe una carretera saliente hacia el cruce destino."); //para que no haya dos carreteras que salgan del msimo cruce a otro igual (serian la misma carretera practicamente)
@@ -72,6 +73,7 @@ public class Junction extends SimulatedObject {
         return outgoingRoads.get(j);
     }
 
+    
     @Override
     public void advance(int currTime) {
         // Usa la estrategia de extracción de la cola para calcular la lista de vehículos que deben avanzar
@@ -82,7 +84,7 @@ public class Junction extends SimulatedObject {
                 v.moveToNextRoad();
                 queue.remove(v);
             }
-        }  //s
+        }  
 
         // Usa la estrategia de cambio de semáforo para calcular el índice de la siguiente carretera a poner en verde
         int nextGreen = lsStrategy.chooseNextGreen(incomingRoads, queues, greenLightIndex, lastSwitchingTime, currTime);
