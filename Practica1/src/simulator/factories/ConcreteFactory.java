@@ -23,7 +23,8 @@ public class ConcreteFactory<T> implements Factory<T> {
     }
 
     @Override
-    public List<JSONObject> get_info() { N        List<JSONObject> infoList = new ArrayList<>();
+    public List<JSONObject> get_info() {         
+    	List<JSONObject> infoList = new ArrayList<>();
         for (Builder<T> b : builders) {
             infoList.add(b.get_info());
         }

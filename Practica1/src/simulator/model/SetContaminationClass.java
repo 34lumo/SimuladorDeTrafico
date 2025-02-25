@@ -6,6 +6,7 @@ import simulator.misc.Pair;
 
 public class SetContaminationClass extends Event {
     private List<Pair<String, Integer>> cs;
+    
 
     public SetContaminationClass (int time, List<Pair<String, Integer>> cs) {
         super(time);
