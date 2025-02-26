@@ -24,7 +24,7 @@ public class Controller {
         this.eventsFactory = eventsFactory;
     }
 
-    // cargará el evento desde input stream
+    // cargará el evento desde input stream. prueba
     public void loadEvents(InputStream in) {
         if (in == null) {
             throw new IllegalArgumentException("El InputStream no puede ser null.");
