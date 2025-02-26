@@ -24,7 +24,7 @@ public class Controller {
         this.eventsFactory = eventsFactory;
     }
 
-    // cargará el evento desde input stream. prueba
+    // cargará el evento desde input stream. prueba2
     public void loadEvents(InputStream in) {
         if (in == null) {
         }
