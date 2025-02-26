@@ -16,7 +16,7 @@ public class Controller {
     private TrafficSimulator simulator;
     private Factory<Event> eventsFactory;
 
-    public Controller(TrafficSimulator sim, Factory<Event> eventsFactory) {
+    public Controller(TrafficSimulator sim, Factory<Event> eventsFactory) { //recibe un simulador (nuevo), y una factoría de eventos (con una serie de eventos ya dentro de la lista).
         if (sim == null || eventsFactory == null) {
             throw new IllegalArgumentException("El simulador y la factoría de eventos no pueden ser null.");
         }
@@ -24,47 +24,43 @@ public class Controller {
         this.eventsFactory = eventsFactory;
     }
 
-    // cargará el evento desde input stream. prueba
+//Lee un archivo JSON que contiene eventos. ej; FileInputStream in = new FileInputStream("eventos.json") y se lo pasa -> controller.loadEvents(in);
     public void loadEvents(InputStream in) {
         if (in == null) {
-            throw new IllegalArgumentException("El InputStream no puede ser null.");
         }
-
-        JSONObject jo = new JSONObject(new JSONTokener(in));
-
-        if (!jo.has("events")) {
+        JSONObject jo = new JSONObject(new JSONTokener(in)); //Lee el archivo JSON y lo convierte en un JSONObject
+        if (!jo.has("events")) { //Verifica que el JSON contiene la clave "events"
             throw new IllegalArgumentException("El JSON de entrada debe contener una clave 'events'.");
         }
-
-        JSONArray eventsArray = jo.getJSONArray("events");
-        for (int i = 0; i < eventsArray.length(); i++) {
-            JSONObject eventJSON = eventsArray.getJSONObject(i);
-            Event event = eventsFactory.create_instance(eventJSON);
-            simulator.addEvent(event);
+        JSONArray eventsArray = jo.getJSONArray("events"); //Crea un array de eventos (lo hace solo porque mira a ver cuantos "events" existen dentro del json) - este array esta en formato JSON ( no lo queremos asi ) lo que queremos es los eventos
+        for (int i = 0; i < eventsArray.length(); i++) { //itera sobre cada uno de los eventos
+            JSONObject eventJSON = eventsArray.getJSONObject(i); //Por cada "event" que hay, sabe guardar cada evento en un JSONObject
+            Event event = eventsFactory.create_instance(eventJSON); //ahora si que crea el evento, llamando al create_instance de concrete factory (que es la que sabe a que subclase de evento llamar)
+            simulator.addEvent(event);  //lo metemos al simulador vacio que teniamos.
         }
     }
 
-    // Método para ejecutar la simulación n pasos y escribir los estados en OutputStream
-    public void run(int n, OutputStream out) {
+    public void run(int n, OutputStream out) { //n será el número de ticks que se quiere avanzar. | out guarda el fichero de salida donde se van a guardar los datos.
         if (n < 1) {
-            throw new IllegalArgumentException("El número de pasos debe ser mayor que 0.");
+            throw new IllegalArgumentException("El número de ticks debe ser mayor que 0.");
         }
         if (out == null) {
-            throw new IllegalArgumentException("El OutputStream no puede ser null.");
+            throw new IllegalArgumentException("El OutputStream no puede ser null."); 
         }
-
-        JSONArray statesArray = new JSONArray();
-        PrintWriter writer = new PrintWriter(out);
+        JSONArray statesArray = new JSONArray(); // Crea un array JSON vacío que almacenará el estado del simulador en cada tick. abajo ejemplo statesArray tras dos ticks
+        /*{ "time": 1, "state": { "junctions": [...], "roads": [...], "vehicles": [...] } },
+        { "time": 2, "state": { "junctions": [...], "roads": [...], "vehicles": [...] } },*/
+        PrintWriter writer = new PrintWriter(out); // Permite escribir en el OutputStream.  Se usa para imprimir el JSON generado después de la simulación.
 
         for (int i = 0; i < n; i++) {
-            simulator.advance();
-            statesArray.put(simulator.report());
+            simulator.advance(); // Avanza la simulación un tick. (con todo lo que este advance conlleva)
+            statesArray.put(simulator.report()); // Guarda el estado del simulador en statesArray después del tick
         }
+        JSONObject outputJSON = new JSONObject(); // Crea un JSON que contendrá el estado final de la simulación
+        outputJSON.put("states", statesArray); // Agrega todos los elementos de statesArray al JSON final
 
-        JSONObject outputJSON = new JSONObject();
-        outputJSON.put("states", statesArray);
-        writer.println(outputJSON.toString(2)); 
-        writer.flush();
+        writer.println(outputJSON.toString(2)); // Escribe el JSON en string con indentación
+        writer.flush(); // Asegura que toda la salida se escriba 
     }
 
     // resetea el controllador
