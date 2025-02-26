@@ -19,7 +19,7 @@ public class Main {
 	private static Factory<Event> _eventsFactory = null;
 
 	private static void parseArgs(String[] args) {
-
+		
 		// define the valid command line options
 		//
 		Options cmdLineOptions = buildOptions();
