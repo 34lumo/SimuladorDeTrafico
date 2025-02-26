@@ -27,7 +27,6 @@ public class Controller {
     // cargará el evento desde input stream. prueba
     public void loadEvents(InputStream in) {
         if (in == null) {
-            throw new IllegalArgumentException("El InputStream no puede ser null.");
         }
 
         JSONObject jo = new JSONObject(new JSONTokener(in));
