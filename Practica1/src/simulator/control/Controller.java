@@ -16,7 +16,6 @@ public class Controller {
     private TrafficSimulator simulator;
     private Factory<Event> eventsFactory;
 
-    // Constructor
     public Controller(TrafficSimulator sim, Factory<Event> eventsFactory) {
         if (sim == null || eventsFactory == null) {
             throw new IllegalArgumentException("El simulador y la factoría de eventos no pueden ser null.");
@@ -25,7 +24,7 @@ public class Controller {
         this.eventsFactory = eventsFactory;
     }
 
-    // Método para cargar eventos desde un InputStream
+    // cargará el evento desde input stream
     public void loadEvents(InputStream in) {
         if (in == null) {
             throw new IllegalArgumentException("El InputStream no puede ser null.");
@@ -64,11 +63,11 @@ public class Controller {
 
         JSONObject outputJSON = new JSONObject();
         outputJSON.put("states", statesArray);
-        writer.println(outputJSON.toString(2)); // Formatea el JSON con indentación de 2 espacios
+        writer.println(outputJSON.toString(2)); 
         writer.flush();
     }
 
-    // Método para resetear el simulador
+    // resetea el controllador
     public void reset() {
         simulator.reset();
     }
