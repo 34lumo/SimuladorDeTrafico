@@ -8,8 +8,3 @@ Este proyecto implementa un **simulador de tráfico** en el que se gestionan **v
 - Gestión de **vehículos con distintos itinerarios** y niveles de contaminación.
 - Factorías para la **creación dinámica de eventos** a partir de archivos JSON.
 - **Modo batch**: ejecución automática desde la línea de comandos.
-
-## 📜 Uso:
-Ejecutar la simulación desde la terminal:
-```sh
-java Main -i eventos.json -o salida.json -t 100
