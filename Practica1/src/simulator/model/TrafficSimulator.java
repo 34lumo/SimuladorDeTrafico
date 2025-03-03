@@ -16,7 +16,7 @@ public class TrafficSimulator {
     }
 
     public void addEvent(Event e) {
-        eventQueue.add(e); // Añade el evento a la cola (se ordena automáticamente por tiempo)
+        eventQueue.add(e); // Añade el evento a la cola (se ordena automáticamente por tiempo, gracias a compareTo)
     }
 
 
@@ -30,15 +30,15 @@ public class TrafficSimulator {
     
     public void advance() {
         time++; // Avanza el tiempo de la simulación en 1 unidad
-        // 1️⃣ Ejecutar eventos programados para este tiempo
+        // Ejecutar eventos programados para este tiempo
         while (!eventQueue.isEmpty() && eventQueue.peek().getTime() == time) {
             eventQueue.poll().execute(map); // Saca el evento y lo ejecuta en el RoadMap
         }
-        // 2️⃣ Llamar a advance() en cada cruce
+        // Llamar a advance() en cada cruce
         for (Junction j : map.getJunctions()) {
             j.advance(time);
         }
-        // 3️⃣ Llamar a advance() en cada carretera
+        // Llamar a advance() en cada carretera
         for (Road r : map.getRoads()) {
             r.advance(time);
         }

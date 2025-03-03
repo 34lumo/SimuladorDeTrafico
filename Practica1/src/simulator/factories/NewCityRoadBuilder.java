@@ -2,6 +2,7 @@ package simulator.factories;
 
 import org.json.JSONObject;
 import simulator.model.CityRoad;
+import simulator.model.Event;
 import simulator.model.Road;
 
 public class NewCityRoadBuilder extends NewRoadBuilder {
@@ -10,7 +11,7 @@ public class NewCityRoadBuilder extends NewRoadBuilder {
     }
 
     @Override
-    protected Road create_instance(JSONObject data) {
-        return create_road(data, true);
+    protected Event create_instance(JSONObject data) {
+        return create_road_event(data, true);
     }
 }

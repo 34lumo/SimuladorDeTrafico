@@ -12,7 +12,7 @@ public class LightSwitchingStrategyFactory {
 
         switch (type) {
             case "round_robin":
-                return new RoundRobinStrategy(timeSlot);
+                return new RoundRobinStrategy(timeSlot); 
             case "most_crowded":
                 return new MostCrowdedStrategy(timeSlot);
             default:
