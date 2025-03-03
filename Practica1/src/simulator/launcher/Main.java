@@ -84,6 +84,30 @@ public class Main {
 
 
 	private static void initFactories() {
+<<<<<<< Updated upstream
+=======
+		List<Builder<LightSwitchingStrategy>> lsbs = new ArrayList<>();
+		lsbs.add(new RoundRobinStrategyBuilder());
+		lsbs.add(new MostCrowdedStrategyBuilder());
+		Factory<LightSwitchingStrategy> lssFactory = new BuilderBasedFactory<>(lsbs);
+
+		List<Builder<DequeuingStrategy>> dqbs = new ArrayList<>();
+		dqbs.add(new MoveFirstStrategyBuilder());
+		dqbs.add(new MoveAllStrategyBuilder());
+		Factory<DequeuingStrategy> dqsFactory = new BuilderBasedFactory<>(dqbs);
+
+		// initialize the events factory
+		List<Builder<Event>> ebs = new ArrayList<>();
+		ebs.add(new NewJunctionBuilder(lssFactory, dqsFactory));
+		ebs.add(new NewCityRoadBuilder());
+		ebs.add(new NewInterCityRoadBuilder());
+		ebs.add(new NewVehicleBuilder());
+		ebs.add(new SetWeatherEventBuilder());
+		ebs.add(new SetContClassEventBuilder());
+		
+		Factory<Event> eventsFactory = new BuilderBasedFactory<>(ebs);
+
+>>>>>>> Stashed changes
 	}
 
 	private static void startBatchMode() throws IOException {

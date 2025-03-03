@@ -1,12 +1,15 @@
 package simulator.factories;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
+import simulator.model.Event;
 import simulator.model.SetContaminationClass;
 import simulator.misc.Pair;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SetContClassEventBuilder extends Builder<SetContaminationClass> {
+public class SetContClassEventBuilder extends Builder<Event> {
+
     public SetContClassEventBuilder() {
         super("set_cont_class", "Cambia la clase de contaminación de vehículos.");
     }
@@ -17,12 +20,16 @@ public class SetContClassEventBuilder extends Builder<SetContaminationClass> {
     }
 
     @Override
-    protected SetContaminationClass create_instance(JSONObject data) {
-        List<Pair<String, Integer>> cs = new ArrayList<>();
-        for (Object obj : data.getJSONArray("cs")) {
-            JSONObject pair = (JSONObject) obj;
-            cs.add(new Pair<>(pair.getString("vehicle"), pair.getInt("class")));
+    protected Event create_instance(JSONObject data) {
+        int time = data.getInt("time");
+        List<Pair<String, Integer>> contaminationChanges = new ArrayList<>();
+
+        JSONArray infoArray = data.getJSONArray("cs");
+        for (int i = 0; i < infoArray.length(); i++) {
+            JSONObject pair = infoArray.getJSONObject(i);
+            contaminationChanges.add(new Pair<>(pair.getString("vehicle"), pair.getInt("class")));
         }
-        return new SetContaminationClass(data.getInt("time"), cs);
+
+        return new SetContaminationClass(time, contaminationChanges);
     }
 }

@@ -1,13 +1,16 @@
 package simulator.factories;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
+import simulator.model.Event;
 import simulator.model.SetWeather;
 import simulator.misc.Pair;
 import simulator.model.Weather;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SetWeatherEventBuilder extends Builder<SetWeather> {
+public class SetWeatherEventBuilder extends Builder<Event> {
+
     public SetWeatherEventBuilder() {
         super("set_weather", "Cambia el clima en carreteras.");
     }
@@ -18,12 +21,16 @@ public class SetWeatherEventBuilder extends Builder<SetWeather> {
     }
 
     @Override
-    protected SetWeather create_instance(JSONObject data) { //explica
-        List<Pair<String, Weather>> ws = new ArrayList<>();
-        for (Object obj : data.getJSONArray("ws")) {
-            JSONObject pair = (JSONObject) obj;
-            ws.add(new Pair<>(pair.getString("road"), Weather.valueOf(pair.getString("weather").toUpperCase())));
+    protected Event create_instance(JSONObject data) {
+        int time = data.getInt("time");
+        List<Pair<String, Weather>> weatherChanges = new ArrayList<>();
+
+        JSONArray infoArray = data.getJSONArray("ws");
+        for (int i = 0; i < infoArray.length(); i++) {
+            JSONObject pair = infoArray.getJSONObject(i);
+            weatherChanges.add(new Pair<>(pair.getString("road"), Weather.valueOf(pair.getString("weather").toUpperCase())));
         }
-        return new SetWeather(data.getInt("time"), ws);
+
+        return new SetWeather(time, weatherChanges);
     }
 }
