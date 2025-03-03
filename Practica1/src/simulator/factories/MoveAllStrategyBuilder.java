@@ -7,7 +7,7 @@ import simulator.model.MoveAllStrategy;
 public class MoveAllStrategyBuilder extends Builder<DequeuingStrategy> {
 
     public MoveAllStrategyBuilder() {
-        super("move_all", "Estrategia que mueve todos los vehículos de la cola.");
+        super("move_all_dqs", "Estrategia que mueve todos los vehículos de la cola.");
     }
 
     @Override

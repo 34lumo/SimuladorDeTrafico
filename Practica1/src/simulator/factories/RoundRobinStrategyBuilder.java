@@ -7,7 +7,7 @@ import simulator.model.RoundRobinStrategy;
 public class RoundRobinStrategyBuilder extends Builder<LightSwitchingStrategy> {
 
     public RoundRobinStrategyBuilder() {
-        super("round_robin", "Estrategia de cambio de semáforo Round Robin");
+        super("round_robin_lss", "Estrategia de cambio de semáforo Round Robin");
     }
 
     @Override

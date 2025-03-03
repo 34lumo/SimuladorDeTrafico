@@ -17,7 +17,7 @@ public class SetWeatherEventBuilder extends Builder<Event> {
 
     @Override
     protected void fill_in_data(JSONObject o) {
-        o.put("ws", "Lista de pares [carretera, clima]");
+        o.put("info", "Lista de pares [carretera, clima]");
     }
 
     @Override
@@ -25,7 +25,7 @@ public class SetWeatherEventBuilder extends Builder<Event> {
         int time = data.getInt("time");
         List<Pair<String, Weather>> weatherChanges = new ArrayList<>();
 
-        JSONArray infoArray = data.getJSONArray("ws");
+        JSONArray infoArray = data.getJSONArray("info");
         for (int i = 0; i < infoArray.length(); i++) {
             JSONObject pair = infoArray.getJSONObject(i);
             weatherChanges.add(new Pair<>(pair.getString("road"), Weather.valueOf(pair.getString("weather").toUpperCase())));

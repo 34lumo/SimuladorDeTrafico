@@ -16,7 +16,7 @@ public class SetContClassEventBuilder extends Builder<Event> {
 
     @Override
     protected void fill_in_data(JSONObject o) {
-        o.put("cs", "Lista de pares [vehículo, nueva clase de contaminación]");
+        o.put("info", "Lista de pares [vehículo, nueva clase de contaminación]");
     }
 
     @Override
@@ -24,7 +24,7 @@ public class SetContClassEventBuilder extends Builder<Event> {
         int time = data.getInt("time");
         List<Pair<String, Integer>> contaminationChanges = new ArrayList<>();
 
-        JSONArray infoArray = data.getJSONArray("cs");
+        JSONArray infoArray = data.getJSONArray("info");
         for (int i = 0; i < infoArray.length(); i++) {
             JSONObject pair = infoArray.getJSONObject(i);
             contaminationChanges.add(new Pair<>(pair.getString("vehicle"), pair.getInt("class")));

@@ -30,12 +30,15 @@ public class NewJunctionBuilder extends Builder<Event> {
     protected Event create_instance(JSONObject data) {
         int time = data.getInt("time");
         String id = data.getString("id");
-        int x = data.getInt("x");
-        int y = data.getInt("y");
+
+        // Extraer las coordenadas correctamente desde el array "coor"
+        int x = data.getJSONArray("coor").getInt(0);
+        int y = data.getJSONArray("coor").getInt(1);
 
         LightSwitchingStrategy lsStrategy = lssFactory.create_instance(data.getJSONObject("ls_strategy"));
         DequeuingStrategy dqStrategy = dqsFactory.create_instance(data.getJSONObject("dq_strategy"));
 
         return new NewJunction(time, id, lsStrategy, dqStrategy, x, y);
     }
+
 }

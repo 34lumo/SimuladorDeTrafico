@@ -7,7 +7,7 @@ import simulator.model.MostCrowdedStrategy;
 public class MostCrowdedStrategyBuilder extends Builder<LightSwitchingStrategy> {
 
     public MostCrowdedStrategyBuilder() {
-        super("most_crowded", "Estrategia que prioriza la carretera con más vehículos");
+        super("most_crowded_lss", "Estrategia que prioriza la carretera con más vehículos");
     }
 
     @Override
