@@ -1,6 +1,6 @@
 package simulator.model;
 
-class NewJunction extends Event {
+public class NewJunction extends Event {
     private String id;
     private LightSwitchingStrategy lsStrategy;
     private DequeuingStrategy dqStrategy;

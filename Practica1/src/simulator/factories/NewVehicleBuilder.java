@@ -1,35 +1,40 @@
 package simulator.factories;
 
-import org.json.JSONObject;
-import simulator.model.Vehicle;
-import simulator.model.Junction;
 import java.util.ArrayList;
 import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import simulator.model.Event;
+import simulator.model.NewVehicle;
 
-public class NewVehicleBuilder extends Builder<Vehicle> {
+public class NewVehicleBuilder extends Builder<Event> {
+
     public NewVehicleBuilder() {
-        super("new_vehicle", "Crea un nuevo vehículo en la simulación.");
+        super("new_vehicle", "Crea un nuevo evento de vehículo en la simulación.");
     }
 
     @Override
     protected void fill_in_data(JSONObject o) {
+        o.put("time", "Tick en el que se añadirá el vehículo");
         o.put("id", "ID del vehículo");
-        o.put("maxSpeed", "Velocidad máxima");
+        o.put("maxspeed", "Velocidad máxima del vehículo");
         o.put("class", "Clase de contaminación (0-10)");
-        o.put("itinerary", "Lista de cruces en el itinerario");
+        o.put("itinerary", "Lista de identificadores de cruces que forman el itinerario");
     }
 
     @Override
-    protected Vehicle create_instance(JSONObject data) {
+    protected Event create_instance(JSONObject data) {
+        int time = data.getInt("time");
         String id = data.getString("id");
-        int maxSpeed = data.getInt("maxSpeed");
+        int maxSpeed = data.getInt("maxspeed");
         int contaminationClass = data.getInt("class");
 
-        List<Junction> itinerary = new ArrayList<>();
-        for (Object jId : data.getJSONArray("itinerary")) {
-            itinerary.add(RoadMapFactory.getJunction(jId.toString()));
+        List<String> itinerary = new ArrayList<>();
+        JSONArray itineraryArray = data.getJSONArray("itinerary");
+        for (int i = 0; i < itineraryArray.length(); i++) {
+            itinerary.add(itineraryArray.getString(i)); // Guardamos los IDs de los cruces
         }
 
-        return new Vehicle(id, maxSpeed, contaminationClass, itinerary);
+        return new NewVehicle(time, id, maxSpeed, contaminationClass, itinerary);
     }
 }

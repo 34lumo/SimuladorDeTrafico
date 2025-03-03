@@ -99,15 +99,16 @@ public class Junction extends SimulatedObject {
         JSONObject jo = new JSONObject();
         jo.put("id", getId());
         jo.put("green", greenLightIndex == -1 ? "none" : incomingRoads.get(greenLightIndex).getId());
-        JSONArray jsonQueues = new JSONArray();
+        
+        JSONArray jsonQueues = new JSONArray(); //array para colas
         for (List<Vehicle> queue : queues) {
             JSONObject jsonQueue = new JSONObject();
             jsonQueue.put("road", incomingRoads.get(queues.indexOf(queue)).getId());
-            JSONArray jsonVehicles = new JSONArray();
+            JSONArray jsonVehicles = new JSONArray(); //array para vehiculos
             for (Vehicle v : queue) {
-                jsonVehicles.put(v.getId());
+                jsonVehicles.put(v.getId()); //vas añadienod los vehiculos
             }
-            jsonQueue.put("vehicles", jsonVehicles);
+            jsonQueue.put("vehicles", jsonVehicles); //añades los vehiculos al jsonQueue
             jsonQueues.put(jsonQueue);
         }
         jo.put("queues", jsonQueues);
