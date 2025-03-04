@@ -37,12 +37,14 @@ public abstract class Road extends SimulatedObject {
         destJunc.addIncomingRoad(this);
     }
     
-    public void enter(Vehicle v) {
-        if (v.getLocation() != 0 || v.getSpeed() != 0) {
-            throw new IllegalArgumentException("El vehiculo tiene que estar al comienzo de la carretera y no puede estar en movimiento.");
-        }
-        this.vehicles.add(v);
-    }
+	void enter(Vehicle v) {
+
+		if(v.getLocation() != 0) throw new IllegalArgumentException("La localizacion del vehiculo tiene que ser 0.");
+		if(v.getSpeed() != 0) throw new IllegalArgumentException("La velocidad del vehiculo tiene que ser 0.");
+
+		vehicles.add(v);
+	}
+
     
     public void exit(Vehicle v) {
         vehicles.remove(v);

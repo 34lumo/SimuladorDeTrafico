@@ -46,16 +46,16 @@ public class Vehicle extends SimulatedObject {
     public void advance(int currTime) { 
         if (this.status == VehicleStatus.TRAVELING) {
             int prevLocation = this.location;
-            this.location = Math.min(this.location + this.currentSpeed, road.getLength());  //CHEKEAR
+            this.location = Math.min(this.location + this.currentSpeed, road.getLength());  
             int distanceTraveled = this.location - prevLocation;
             int contamination = distanceTraveled * this.contaminationClass; 
             this.totalCO2 += contamination;
-            road.addContamination(contamination); //TERMINAR
+            road.addContamination(contamination); 
             this.totalDistance += distanceTraveled;
 
             if (this.location >= road.getLength()) {
                 this.status = VehicleStatus.WAITING;
-                road.getDest().enter(this); //comprobar que sea un metodo junction
+                road.getDest().enter(this); 
             }
         }
     }
@@ -70,7 +70,7 @@ public class Vehicle extends SimulatedObject {
     	    if (road != null) {
     	        road.exit(this);
     	    }
-    	    
+    	 
     	    //Comprobar si el vehículo ha llegado al final de su itinerario
     	    if (itineraryIndex == itinerary.size() - 1) {
     	        status = VehicleStatus.ARRIVED;

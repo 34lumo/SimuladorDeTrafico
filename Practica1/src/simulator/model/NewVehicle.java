@@ -22,6 +22,8 @@ public class NewVehicle extends Event {
         for (String jId : itinerary) {
             junctionList.add(map.getJunction(jId)); //Se van añadiendo los cruces (ya que itinerary tiene los nombres esscritos) a junctionList.
         }
-        map.addVehicle(new Vehicle(id, maxSpeed, contClass, junctionList));
+        Vehicle createdVehicle = new Vehicle(id, maxSpeed, contClass, junctionList); //Se crea un nuevo vehículo con los datos obtenidos y se añade al RoadMap.
+        map.addVehicle(createdVehicle);
+        createdVehicle.moveToNextRoad();
     }
 }
