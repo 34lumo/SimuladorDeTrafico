@@ -9,6 +9,7 @@ import simulator.factories.Factory;
 
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.util.List;
 
@@ -39,7 +40,7 @@ public class Controller {
             simulator.addEvent(event);  //lo metemos al simulador vacio que teniamos.
         }
     }
-
+/*
     public void run(int n, OutputStream out) { //n será el número de ticks que se quiere avanzar. | out guarda el fichero de salida donde se van a guardar los datos.
         if (n < 1) {
             throw new IllegalArgumentException("El número de ticks debe ser mayor que 0.");
@@ -49,7 +50,7 @@ public class Controller {
         }
         JSONArray statesArray = new JSONArray(); // Crea un array JSON vacío que almacenará el estado del simulador en cada tick. abajo ejemplo statesArray tras dos ticks
         /*{ "time": 1, "state": { "junctions": [...], "roads": [...], "vehicles": [...] } },
-        { "time": 2, "state": { "junctions": [...], "roads": [...], "vehicles": [...] } },*/
+        { "time": 2, "state": { "junctions": [...], "roads": [...], "vehicles": [...] } },
         PrintWriter writer = new PrintWriter(out); // Permite escribir en el OutputStream.  Se usa para imprimir el JSON generado después de la simulación.
 
         for (int i = 0; i < n; i++) {
@@ -59,9 +60,28 @@ public class Controller {
         JSONObject outputJSON = new JSONObject(); // Crea un JSON que contendrá el estado final de la simulación
         outputJSON.put("states", statesArray); // Agrega todos los elementos de statesArray al JSON final
 
-        writer.println(outputJSON.toString(2)); // Escribe el JSON en string con indentación
+        writer.println(outputJSON.toString()); // Escribe el JSON en string con indentación
         writer.flush(); // Asegura que toda la salida se escriba 
     }
+    */
+
+    public void run(int n, OutputStream out) { 
+        if (n < 1) {
+            throw new IllegalArgumentException("El número de ticks debe ser mayor que 0.");
+        }
+        if (out == null) {
+            throw new IllegalArgumentException("El OutputStream no puede ser null."); 
+        }
+
+        PrintWriter writer = new PrintWriter(out);
+
+        for (int i = 0; i < n; i++) {
+            simulator.advance(); 
+            writer.println(simulator.report().toString());  // ✅ Cada tick en una línea separada
+        }
+        writer.flush();
+    }
+ 
 
     // resetea el controllador
     public void reset() {

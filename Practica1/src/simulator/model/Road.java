@@ -31,7 +31,6 @@ public abstract class Road extends SimulatedObject {
         this.currentSpeedLimit = maxSpeed; // Initially, the current speed limit is the maximum speed.
         this.contLimit = contLimit;
         this.weather = weather;
-        this.totalCO2 = 0;
         this.vehicles = new ArrayList<>();
 
         srcJunc.addOutgoingRoad(this);

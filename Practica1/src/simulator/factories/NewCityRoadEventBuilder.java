@@ -5,8 +5,8 @@ import simulator.model.CityRoad;
 import simulator.model.Event;
 import simulator.model.Road;
 
-public class NewCityRoadBuilder extends NewRoadBuilder {
-    public NewCityRoadBuilder() {
+public class NewCityRoadEventBuilder extends NewRoadEventBuilder {
+    public NewCityRoadEventBuilder() {
         super("new_city_road", "Crea una carretera urbana.");
     }
 

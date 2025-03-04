@@ -7,9 +7,9 @@ import org.json.JSONObject;
 import simulator.model.Event;
 import simulator.model.NewVehicle;
 
-public class NewVehicleBuilder extends Builder<Event> {
+public class NewVehicleEventBuilder extends Builder<Event> {
 
-    public NewVehicleBuilder() {
+    public NewVehicleEventBuilder() {
         super("new_vehicle", "Crea un nuevo evento de vehículo en la simulación.");
     }
 

@@ -6,11 +6,11 @@ import simulator.model.NewJunction;
 import simulator.model.LightSwitchingStrategy;
 import simulator.model.DequeuingStrategy;
 
-public class NewJunctionBuilder extends Builder<Event> {
+public class NewJunctionEventBuilder extends Builder<Event> {
     private Factory<LightSwitchingStrategy> lssFactory;
     private Factory<DequeuingStrategy> dqsFactory;
 
-    public NewJunctionBuilder(Factory<LightSwitchingStrategy> lssFactory, Factory<DequeuingStrategy> dqsFactory) {
+    public NewJunctionEventBuilder(Factory<LightSwitchingStrategy> lssFactory, Factory<DequeuingStrategy> dqsFactory) {
         super("new_junction", "Crea un nuevo evento de cruce en la simulación.");
         this.lssFactory = lssFactory;
         this.dqsFactory = dqsFactory;

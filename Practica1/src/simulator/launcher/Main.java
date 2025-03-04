@@ -80,30 +80,29 @@ public class Main {
         }
     }
 
-    private static void initFactories() {
-        List<Builder<LightSwitchingStrategy>> lsbs = List.of(
-            new RoundRobinStrategyBuilder(),
-            new MostCrowdedStrategyBuilder()
-        );
-        Factory<LightSwitchingStrategy> lssFactory = new BuilderBasedFactory<>(lsbs);
-
-        List<Builder<DequeuingStrategy>> dqbs = List.of(
-            new MoveFirstStrategyBuilder(),
-            new MoveAllStrategyBuilder()
-        );
-        Factory<DequeuingStrategy> dqsFactory = new BuilderBasedFactory<>(dqbs);
-
-        List<Builder<Event>> ebs = List.of(
-            new NewJunctionBuilder(lssFactory, dqsFactory),
-            new NewCityRoadBuilder(),
-            new NewInterCityRoadBuilder(),
-            new NewVehicleBuilder(),
-            new SetWeatherEventBuilder(),
-            new SetContClassEventBuilder()
-        );
-        _eventsFactory = new BuilderBasedFactory<>(ebs);
-    }
-
+	private static void initFactories() {
+	
+		List<Builder<LightSwitchingStrategy>> lsbs = new ArrayList<>();
+		lsbs.add(new RoundRobinStrategyBuilder());
+		lsbs.add(new MostCrowdedStrategyBuilder());
+		Factory<LightSwitchingStrategy> lssFactory = new BuilderBasedFactory<>(lsbs);
+		
+		List<Builder<DequeuingStrategy>> dqbs = new ArrayList<>();
+		dqbs.add(new MoveFirstStrategyBuilder());
+		dqbs.add(new MoveAllStrategyBuilder());
+		Factory<DequeuingStrategy> dqsFactory = new BuilderBasedFactory<>(dqbs);
+		
+		List<Builder<Event>> ebs = new ArrayList<>();
+		ebs.add(new NewJunctionEventBuilder(lssFactory, dqsFactory)); 
+		ebs.add(new NewCityRoadEventBuilder());
+		ebs.add(new NewInterCityRoadEventBuilder());
+		ebs.add(new NewVehicleEventBuilder());
+		ebs.add(new SetWeatherEventBuilder());
+		ebs.add(new SetContClassEventBuilder());
+		
+		_eventsFactory = new BuilderBasedFactory<>(ebs);
+	}
+	
     private static void startBatchMode() throws IOException {
         try (InputStream in = new FileInputStream(new File(_inFile));
              OutputStream out = (_outFile == null) ? System.out : new FileOutputStream(new File(_outFile))) {

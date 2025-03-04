@@ -6,9 +6,9 @@ import simulator.model.NewCityRoad;
 import simulator.model.NewInterCityRoad;
 import simulator.model.Weather;
 
-public abstract class NewRoadBuilder extends Builder<Event> {
+public abstract class NewRoadEventBuilder extends Builder<Event> {
 
-    public NewRoadBuilder(String type, String desc) {
+    public NewRoadEventBuilder(String type, String desc) {
         super(type, desc);
     }
 
