@@ -14,18 +14,23 @@ public class InterCityRoad extends Road {
             case WINDY -> 15;
             case STORM -> 20;
         };
-        this.totalCO2 = Math.max(0, this.totalCO2 - ((100 - reductionFactor) * this.totalCO2 / 100));
-    }
+        int currentCO2 = getTotalCO2();
+        double reduction = ((100.0 - reductionFactor) / 100.0) * currentCO2;
+        totalCO2 = (int) reduction;    
+        }
+    
 
     @Override
-	public void updateSpeedLimit() {
-        if (this.totalCO2 > this.getContLimit()) {
-            this.currentSpeedLimit = this.getMaxSpeed() / 2;
+    public void updateSpeedLimit() {
+        if (getTotalCO2() > getContLimit()) {
+            currentSpeedLimit = (int) (getMaxSpeed() * 0.5);
         } else {
-            this.currentSpeedLimit = this.getMaxSpeed();
+            currentSpeedLimit = getMaxSpeed();
         }
     }
     
+    
+
     @Override
     public int calculateVehicleSpeed(Vehicle v) {
     	int calculatedSpeed;

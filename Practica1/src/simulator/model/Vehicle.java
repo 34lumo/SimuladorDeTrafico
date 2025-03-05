@@ -32,11 +32,14 @@ public class Vehicle extends SimulatedObject {
         this.totalDistance = 0;
         this.itineraryIndex = 0;
     }
-
+    
     public void setSpeed(int s) {
-        if (s < 0) throw new IllegalArgumentException("Speed cannot be negative.");
-        this.currentSpeed = Math.min(s, this.maxSpeed);
-    }
+	    if (s < 0)
+	        throw new IllegalArgumentException("Speed cannot be negative.");
+	    if (this.status != VehicleStatus.TRAVELING) 
+	        return; // No hacer nada si el vehículo no está viajando
+	    this.currentSpeed = Math.min(s, this.maxSpeed);
+	}
 
     public void setContaminationClass(int c) {
         if (c < 0 || c > 10) throw new IllegalArgumentException("Contamination class must be between 0 and 10.");

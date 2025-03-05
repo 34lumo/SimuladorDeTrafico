@@ -10,21 +10,38 @@ public class MostCrowdedStrategy implements LightSwitchingStrategy {
     }
 
     @Override
-    public int chooseNextGreen(List<Road> roads, List<List<Vehicle>> qs, int currGreen, int lastSwitchingTime, int currTime) {
-        if (roads.isEmpty()) 
-        	return -1;
-
-        int colaMasLarga = currGreen;
-        if (currGreen == -1 || currTime - lastSwitchingTime >= timeSlot) {
-            int maxQueue = -1;
-            for (int i = 0; i < qs.size(); i++) {
-                if (qs.get(i).size() > maxQueue) {
-                    maxQueue = qs.get(i).size();
-                    colaMasLarga = i;
+    public int chooseNextGreen(List<Road> roads, List<List<Vehicle>> queues, int currentGreen, int lastSwitchingTime, int currentTime) {
+        if (roads.isEmpty()) {
+            return -1;
+        } else if (currentGreen == -1) {
+            int maxQueueSize = 0;
+            int selectedIndex = 0;
+            
+            for (int i = 0; i < queues.size(); i++) {
+                if (maxQueueSize < queues.get(i).size()) {
+                    maxQueueSize = queues.get(i).size();
+                    selectedIndex = i;
                 }
             }
+            
+            return selectedIndex;
+        } else if (currentTime - lastSwitchingTime < timeSlot) {
+            return currentGreen;
+        } else {
+            int maxQueueSize = 0, selectedIndex = 0, searchIndex = (currentGreen + 1) % queues.size();
+            
+            for (int i = 0; i < queues.size(); i++) {
+                if (maxQueueSize < queues.get(searchIndex).size()) {
+                    maxQueueSize = queues.get(searchIndex).size();
+                    selectedIndex = searchIndex;
+                }
+                searchIndex++;
+                if (searchIndex == queues.size()) {
+                    searchIndex = 0;
+                }
+            }
+            return selectedIndex;
         }
-
-        return colaMasLarga; // Devuelve el índice de la carretera con la cola más larga.
     }
+
 }
