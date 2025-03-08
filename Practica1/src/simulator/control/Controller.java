@@ -83,7 +83,7 @@ public class Controller {
 			throw new IllegalArgumentException("El OutputStream no puede ser null.");
 		PrintWriter writer = new PrintWriter(out);
 		writer.println("{");
-		writer.println("   \"states\": [");
+		writer.println("  \"states\": [");
 
 
 		for (int i = 0; i < n; i++) {

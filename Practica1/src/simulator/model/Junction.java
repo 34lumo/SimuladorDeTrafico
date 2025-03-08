@@ -98,20 +98,25 @@ public class Junction extends SimulatedObject {
     public JSONObject report() {
         JSONObject jo = new JSONObject();
         jo.put("id", getId());
-        jo.put("green", greenLightIndex == -1 ? "none" : incomingRoads.get(greenLightIndex).getId());
         
-        JSONArray jsonQueues = new JSONArray(); //array para colas
-        for (List<Vehicle> queue : queues) {
-            JSONObject jsonQueue = new JSONObject();
-            jsonQueue.put("road", incomingRoads.get(queues.indexOf(queue)).getId());
-            JSONArray jsonVehicles = new JSONArray(); //array para vehiculos
-            for (Vehicle v : queue) {
-                jsonVehicles.put(v.getId()); //vas añadienod los vehiculos
-            }
-            jsonQueue.put("vehicles", jsonVehicles); //añades los vehiculos al jsonQueue
-            jsonQueues.put(jsonQueue);
-        }
+        jo.put("green", (greenLightIndex == -1) ? "none" : incomingRoads.get(greenLightIndex).getId());
+        
+        JSONArray jsonQueues = new JSONArray();
         jo.put("queues", jsonQueues);
+        
+        for (Road road : incomingRoads) {
+            JSONObject jsonRoad = new JSONObject();
+            jsonQueues.put(jsonRoad);
+            jsonRoad.put("road", road.getId());
+            
+            JSONArray jsonVehicles = new JSONArray();
+            jsonRoad.put("vehicles", jsonVehicles);
+            
+            for (Vehicle v : roadToQueueMap.get(road)) {
+                jsonVehicles.put(v.getId());
+            }
+        }
+        
         return jo;
     }
 }
