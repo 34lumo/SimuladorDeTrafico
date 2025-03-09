@@ -58,6 +58,7 @@ public class Vehicle extends SimulatedObject {
 
             if (this.location >= road.getLength()) {
                 this.status = VehicleStatus.WAITING;
+                this.currentSpeed = 0;
                 road.getDest().enter(this); 
             }
         }
