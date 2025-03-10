@@ -16,7 +16,7 @@ public class SetContClassEventBuilder extends Builder<Event> {
 
     @Override
     protected void fill_in_data(JSONObject o) {
-        o.put("info", "Lista de pares [vehículo, nueva clase de contaminación]");
+        o.put("info", "[vehículo, new contamination class]");
     }
 
     @Override

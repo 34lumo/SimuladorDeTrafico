@@ -16,15 +16,6 @@ public class NewJunctionEventBuilder extends Builder<Event> {
         this.dqsFactory = dqsFactory;
     }
 
-    @Override
-    protected void fill_in_data(JSONObject o) {
-        o.put("time", "Tiempo en el que se creará el cruce");
-        o.put("id", "ID del cruce");
-        o.put("ls_strategy", "Estrategia de cambio de semáforo");
-        o.put("dq_strategy", "Estrategia de desencolado");
-        o.put("x", "Coordenada X");
-        o.put("y", "Coordenada Y");
-    }
 
     @Override
     protected Event create_instance(JSONObject data) {

@@ -17,7 +17,7 @@ public class SetWeatherEventBuilder extends Builder<Event> {
 
     @Override
     protected void fill_in_data(JSONObject o) {
-        o.put("info", "Lista de pares [carretera, clima]");
+        o.put("info", "[carretera, clima]");
     }
 
     @Override
