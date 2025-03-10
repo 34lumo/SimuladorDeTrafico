@@ -35,13 +35,13 @@ public class TrafficSimulator {
             eventQueue.poll().execute(map); // Saca el evento y lo ejecuta en el RoadMap
         }
         // Llamar a advance() en cada cruce
-        for (Junction j : map.getJunctions()) {
+        for (Junction j : map.getJunctions()) 
             j.advance(time);
-        }
+        
         // Llamar a advance() en cada carretera
-        for (Road r : map.getRoads()) {
+        for (Road r : map.getRoads()) 
             r.advance(time);
-        }
+        
     }
 
     public void reset() {

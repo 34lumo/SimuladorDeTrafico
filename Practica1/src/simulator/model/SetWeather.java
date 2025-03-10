@@ -9,7 +9,10 @@ public class SetWeather extends Event {
 
     public SetWeather(int time, List<Pair<String, Weather>> ws) {
         super(time);
-        if (ws == null) throw new IllegalArgumentException("La lista del weather no puede ser nula");
+        
+        if (ws == null) 
+        	throw new IllegalArgumentException("La lista del weather no puede ser nula");
+        
         this.ws = ws;
     }
 
@@ -17,7 +20,10 @@ public class SetWeather extends Event {
     void execute(RoadMap map) {
         for (Pair<String, Weather> w : ws) {
             Road r = map.getRoad(w.getFirst());
-            if (r == null) throw new IllegalArgumentException("Carretera no encontrada: " + w.getFirst());
+            
+            if (r == null) 
+            	throw new IllegalArgumentException("Carretera no encontrada: " + w.getFirst());
+            
             r.setWeather(w.getSecond());
         }
     }

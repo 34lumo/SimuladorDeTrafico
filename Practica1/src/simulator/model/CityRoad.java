@@ -2,24 +2,35 @@
 package simulator.model;
 
 public class CityRoad extends Road {
-    public CityRoad(String id, Junction srcJunc, Junction destJunc, int maxSpeed, int contLimit, int length, Weather weather) {
-        super(id, srcJunc, destJunc, maxSpeed, contLimit, length, weather);
-    }
+	final int REDUCTION_WINDY_STORM = 10; // Reducción mayor en clima de tormenta
+	final int REDUCTION_DEFAULT = 2; // Reducción mínima en otros climas
 
-    @Override
+	public CityRoad(String id, Junction srcJunc, Junction destJunc, int maxSpeed, int contLimit, int length,
+			Weather weather) {
+		super(id, srcJunc, destJunc, maxSpeed, contLimit, length, weather);
+	}
+
+	@Override
 	public void reduceTotalContamination() {
-        int reduction = this.weather == Weather.WINDY || this.weather == Weather.STORM ? 10 : 2;
-        this.totalCO2 = Math.max(0, this.totalCO2 - reduction);
-    }
+		boolean isWindyOrStormy = this.weather == Weather.WINDY || this.weather == Weather.STORM;
+		int reduction;
 
-    @Override
+		if (isWindyOrStormy)
+			reduction = REDUCTION_WINDY_STORM;
+		else
+			reduction = REDUCTION_DEFAULT;
+
+		this.totalCO2 = Math.max(0, this.totalCO2 - reduction);
+	}
+
+	@Override
 	public void updateSpeedLimit() {
-        this.currentSpeedLimit = this.getMaxSpeed(); // City roads do not change speed limits based on contamination.
-    }
+		this.currentSpeedLimit = this.getMaxSpeed(); // City roads do not change speed limits based on contamination.
+	}
 
-    @Override
+	@Override
 	public int calculateVehicleSpeed(Vehicle v) {
-        return ((11 - v.getContClass()) * this.currentSpeedLimit / 11);
-    }
+		return ((11 - v.getContClass()) * this.currentSpeedLimit / 11);
+	}
 
 }

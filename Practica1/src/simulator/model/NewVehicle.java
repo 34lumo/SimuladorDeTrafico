@@ -19,9 +19,9 @@ public class NewVehicle extends Event {
     void execute(RoadMap map) {
         List<Junction> junctionList = new ArrayList<>(); //Se crea una lista vacía de cruces (Junction) llamada junctionList.
         //Se recorre la lista itinerary y, para cada identificador jId, se obtiene el cruce correspondiente desde el RoadMap usando map.getJunction(jId).
-        for (String jId : itinerary) {
+        for (String jId : itinerary) 
             junctionList.add(map.getJunction(jId)); //Se van añadiendo los cruces (ya que itinerary tiene los nombres esscritos) a junctionList.
-        }
+        
         Vehicle createdVehicle = new Vehicle(id, maxSpeed, contClass, junctionList); //Se crea un nuevo vehículo con los datos obtenidos y se añade al RoadMap.
         map.addVehicle(createdVehicle);
         createdVehicle.moveToNextRoad();

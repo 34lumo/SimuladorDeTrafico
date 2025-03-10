@@ -18,7 +18,10 @@ public class SetContaminationClass extends Event {
     void execute(RoadMap map) {
         for (Pair<String, Integer> c : cs) {
             Vehicle v = map.getVehicle(c.getFirst());
-            if (v == null) throw new IllegalArgumentException("Vehiculo no encontrado; " + c.getFirst());
+            
+            if (v == null) 
+            	throw new IllegalArgumentException("Vehiculo no encontrado; " + c.getFirst());
+            
             v.setContaminationClass(c.getSecond());
         }
     }

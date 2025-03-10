@@ -30,7 +30,7 @@ public class RoadMap {
     }
 //
     public void addJunction(Junction j) {
-        if (junctionMap.containsKey(j.getId()))
+        if (junctionMap.containsKey(j.getId())) //el constainkey busca si hay algun id co el mismonombre exacto y lanza la excepcion
             throw new IllegalArgumentException("Un cruce con el mismo identificador ya existe.");
         junctions.add(j);
         junctionMap.put(j.getId(), j);
@@ -39,23 +39,28 @@ public class RoadMap {
     public void addRoad(Road r) {
         if (roadMap.containsKey(r.getId()))
             throw new IllegalArgumentException("Una carretera con el mismo identificador ya existe.");
-      //Debes asegurarte de que ambos cruces ya existen en junctionMap, es decir, que han sido añadidos previamente al RoadMap.
+      //Hay que asegurarse de que ambos cruces ya existen en junctionMap, es decir, que han sido añadidos previamente al RoadMap.
         if (!junctionMap.containsKey(r.getSrc().getId()) || !junctionMap.containsKey(r.getDest().getId())) 
             throw new IllegalArgumentException("Los cruces que conecta la carretera deben existir en el mapa.");
         roads.add(r);
         roadMap.put(r.getId(), r);
     }
 
-    public void addVehicle(Vehicle v) {
+    public void addVehicle(Vehicle v) 
+    {
+    	
         if (vehicleMap.containsKey(v.getId()))
             throw new IllegalArgumentException("Un vehículo con el mismo identificador ya existe.");
+        
         if (!isValidItinerary(v.getItinerary()))
             throw new IllegalArgumentException("El itinerario del vehículo no es válido.");
+        
         vehicles.add(v);
         vehicleMap.put(v.getId(), v);
     }
 
-    private boolean isValidItinerary(List<Junction> itinerary) { // para añadir un vehiculo, el itinerario debe ser valido
+    private boolean isValidItinerary(List<Junction> itinerary) // para añadir un vehiculo, el itinerario debe ser valido
+    { 
         for (int i = 0; i < itinerary.size() - 1; i++) {
             Junction src = itinerary.get(i);
             Junction dest = itinerary.get(i + 1);

@@ -17,7 +17,6 @@ public class Junction extends SimulatedObject {
     private int lastSwitchingTime;
     private LightSwitchingStrategy lsStrategy; //estrategia para cambiar de color los semáforos.
     private DequeuingStrategy dqStrategy; //una estrategia para eliminar vehı́culos de las colas.
-
     private int xCoor;
     private int yCoor;
    

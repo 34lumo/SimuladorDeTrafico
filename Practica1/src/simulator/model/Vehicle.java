@@ -20,9 +20,15 @@ public class Vehicle extends SimulatedObject {
 
     public Vehicle(String id, int maxSpeed, int contClass, List<Junction> itinerary) {
         super(id);
-        if (maxSpeed <= 0) throw new IllegalArgumentException("Maximum speed must be positive.");
-        if (contClass < 0 || contClass > 10) throw new IllegalArgumentException("Contamination class must be between 0 and 10.");
-        if (itinerary == null || itinerary.size() < 2) throw new IllegalArgumentException("Itinerary must have at least two junctions.");
+        if (maxSpeed <= 0) 
+        	throw new IllegalArgumentException("Maximum speed must be positive.");
+        
+        if (contClass < 0 || contClass > 10)
+        	throw new IllegalArgumentException("Contamination class must be between 0 and 10.");
+        
+        if (itinerary == null || itinerary.size() < 2) 
+        	throw new IllegalArgumentException("Itinerary must have at least two junctions.");
+        
         this.maxSpeed = maxSpeed;
         this.contaminationClass = contClass;
         this.itinerary = Collections.unmodifiableList(new ArrayList<>(itinerary));
@@ -36,18 +42,24 @@ public class Vehicle extends SimulatedObject {
     public void setSpeed(int s) {
 	    if (s < 0)
 	        throw new IllegalArgumentException("Speed cannot be negative.");
+	    
 	    if (this.status != VehicleStatus.TRAVELING) 
 	        return; // No hacer nada si el vehículo no está viajando
+	    
 	    this.currentSpeed = Math.min(s, this.maxSpeed);
 	}
 
     public void setContaminationClass(int c) {
-        if (c < 0 || c > 10) throw new IllegalArgumentException("Contamination class must be between 0 and 10.");
+        if (c < 0 || c > 10)
+        	throw new IllegalArgumentException("Contamination class must be between 0 and 10.");
+        
+        
         this.contaminationClass = c;
     }
 
     public void advance(int currTime) { 
-        if (this.status == VehicleStatus.TRAVELING) {
+        if (this.status == VehicleStatus.TRAVELING) 
+        {
             int prevLocation = this.location;
             this.location = Math.min(this.location + this.currentSpeed, road.getLength());  
             int distanceTraveled = this.location - prevLocation;
@@ -67,7 +79,7 @@ public class Vehicle extends SimulatedObject {
     	public void moveToNextRoad() {
     	    if (this.status != VehicleStatus.PENDING && this.status != VehicleStatus.WAITING) {
     	        throw new UnsupportedOperationException(
-    	                "moveToNextRoad for vehicle '" + getId() + "' failed, the vehicle's status must be PENDING or WAITING.");
+    	                "moveToNextRoad for vehicle '" + getId() + "' failed, the vehicle's status must be PENDING or WAITING."); //el + hace que se pegue el texto
     	    }
     	    
     	    //Si el vehículo está en una carretera, salir de ella
