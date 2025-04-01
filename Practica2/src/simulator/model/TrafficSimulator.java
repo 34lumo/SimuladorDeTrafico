@@ -1,25 +1,31 @@
 package simulator.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
+import java.util.Collections;
 import org.json.JSONObject;
 
-public class TrafficSimulator {
+public class TrafficSimulator implements Observable<TrafficSimObserver> {
     private RoadMap map; // Mapa de carreteras con cruces, carreteras y vehículos
     private Queue<Event> eventQueue; // Cola de eventos ordenados por tiempo
     private int time; // Tiempo actual de la simulación
+    private List<TrafficSimObserver> observers;
 
     public TrafficSimulator() {
         this.map = new RoadMap(); // Inicializa el mapa de carreteras
         this.eventQueue = new PriorityQueue<>(); // Cola de eventos con prioridad por tiempo
         this.time = 0; // Inicializa el tiempo de la simulación
+        this.observers = new ArrayList<>();
     }
 
     public void addEvent(Event e) {
-        eventQueue.add(e); // Añade el evento a la cola (se ordena automáticamente por tiempo, gracias a compareTo)
+            eventQueue.add(e);
+            for (TrafficSimObserver o : observers) {
+                o.onEventAdded(map, Collections.unmodifiableCollection(eventQueue), e, time);
+            }
     }
-
-
     /**
      * Avanza la simulación un tick:
      * 1. Incrementa el tiempo en 1.
@@ -45,9 +51,12 @@ public class TrafficSimulator {
     }
 
     public void reset() {
-        map.reset();    // Borra cruces, carreteras y vehículos
-        eventQueue.clear(); // Borra todos los eventos pendientes
-        time = 0;           // Reinicia el tiempo a 0
+        map.reset();
+        eventQueue.clear();
+        time = 0;
+        for (TrafficSimObserver o : observers) {
+            o.onReset(map, Collections.unmodifiableCollection(eventQueue), time);
+        }
     }
 
     public JSONObject report() {
@@ -56,5 +65,19 @@ public class TrafficSimulator {
         jo.put("state", map.report()); // Guarda el estado del mapa de carreteras
         return jo;
     }
+
+    @Override
+    public void addObserver(TrafficSimObserver o) {
+        if (!observers.contains(o)) {
+            observers.add(o);
+            o.onRegister(map, Collections.unmodifiableList(events), time);
+        }
+    }
+
+    @Override
+    public void removeObserver(TrafficSimObserver o) {
+        observers.remove(o);
+    }
+
 
 }

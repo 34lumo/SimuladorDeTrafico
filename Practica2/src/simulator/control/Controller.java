@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 import simulator.model.TrafficSimulator;
 import simulator.model.Event;
+import simulator.model.TrafficSimObserver;
 import simulator.factories.Factory;
 
 import java.io.InputStream;
@@ -48,7 +49,29 @@ public class Controller {
 			simulator.addEvent(event); // lo metemos al simulador vacio que teniamos.
 		}
 	}
+	
+	public void addObserver(TrafficSimObserver o) {
+	    simulator.addObserver(o);
+	}
+	
+	public void removeObserver(TrafficSimObserver o) {
+	    simulator.removeObserver(o);
+	}
+	
+	public void addEvent(Event e) {
+	    simulator.addEvent(e);
+	}
+	
+	public void run(int n) {
+	    if (n < 1)
+	        throw new IllegalArgumentException("El número de ticks debe ser mayor que 0.");
 
+	    for (int i = 0; i < n; i++) {
+	        simulator.advance();
+	    }
+	}
+
+	
 	public void run(int n, OutputStream out) {
 		if (n < 1)
 			throw new IllegalArgumentException("El número de ticks debe ser mayor que 0.");

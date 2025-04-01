@@ -25,4 +25,10 @@ public class SetContClassEvent extends Event {
             v.setContClass(c.getSecond());
         }
     }
+    
+    @Override
+    public String toString() {
+        return "Set Contamination Class";
+    }
+
 }
