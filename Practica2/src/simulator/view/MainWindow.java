@@ -1,10 +1,15 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.border.TitledBorder;
 
 import simulator.control.Controller;
 
@@ -67,10 +72,27 @@ public class MainWindow extends JFrame {
 		this.setVisible(true);
 	}
 
-	private JPanel createViewPanel(JComponent c, String title) {
-		JPanel p = new JPanel(new BorderLayout());
-		p.setBorder(BorderFactory.createTitledBorder(title));
-		p.add(new JScrollPane(c));
-		return p;
+	private JPanel createViewPanel(JComponent c, String titulo) {
+	    JPanel panel = new JPanel();
+	    panel.setLayout(new BorderLayout());
+
+	    String posible = switch (titulo.toLowerCase()) { // lo haces con switch para evitar tanta repeticion (lwrcase para minusculas y que no se ralle)
+	        case "events" -> "Events";
+	        case "vehicles" -> "Vehicles";
+	        case "roads" -> "Roads";
+	        case "junctions" -> "Junctions";
+	        case "map" -> "Map";
+	        case "map by road" -> "Map by Road";
+	        default -> "View";
+	    };
+
+	    TitledBorder border = BorderFactory.createTitledBorder(
+	            BorderFactory.createLineBorder(Color.DARK_GRAY, 2),
+	            posible, TitledBorder.LEFT, TitledBorder.TOP);
+
+	    panel.setBorder(border);
+	    panel.add(new JScrollPane(c), BorderLayout.CENTER);
+
+	    return panel; //Devuelve el panel
 	}
 }
