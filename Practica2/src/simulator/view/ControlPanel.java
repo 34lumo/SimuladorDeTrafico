@@ -100,7 +100,7 @@ void actionBotonCO2() {
 		if (dialogCO2.open(mapa) != 0) {
 			List<Pair<String, Integer>> cambios = new ArrayList<>();
 			cambios.add(new Pair<>(dialogCO2.getVehicle().getId(), dialogCO2.getCO2Class()));
-			_ctrl.addEvent(new NewSetContClassEvent(tiempo + dialogCO2.getTicks(), cambios));
+			_ctrl.addEvent(new SetContClassEvent(tiempo + dialogCO2.getTicks(), cambios));
 		}
 	}
 
@@ -126,7 +126,7 @@ void actionBotonCO2() {
 		runBtn.addActionListener(e -> {
 			deshabilitarBarra(false);
 			parado = false;
-			simulacion((Integer) ticksSpinner.getValue());
+			run_sim((Integer) ticksSpinner.getValue());
 		});
 		barra.add(runBtn);
 	}
@@ -157,17 +157,17 @@ void actionBotonCO2() {
 		barra.add(salirBtn);
 	}
 
-	private void simulacion(int n) {
+	private void run_sim(int n) {
 		if (n > 0 && !parado) {
 			try {
 				_ctrl.run(1);
+				SwingUtilities.invokeLater(() -> run_sim(n - 1));
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(this, "Error durante simulación", "Error", JOptionPane.ERROR_MESSAGE);
 				parado = true;
 				deshabilitarBarra(true);
 				return;
 			}
-			SwingUtilities.invokeLater(() -> simulacion(n - 1));
 		} else {
 			parado = true;
 			deshabilitarBarra(true);
@@ -178,7 +178,7 @@ void actionBotonCO2() {
 		abrirFicheroBtn.setEnabled(estado);
 		cambiarCO2Btn.setEnabled(estado);
 		cambiarTiempoBtn.setEnabled(estado);
-		startBtn.setEnabled(estado);
+		runBtn.setEnabled(estado);
 		salirBtn.setEnabled(estado);
 		ticksSpinner.setEnabled(estado);
 	}
