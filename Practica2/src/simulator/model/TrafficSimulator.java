@@ -48,6 +48,9 @@ public class TrafficSimulator implements Observable<TrafficSimObserver> {
         for (Road r : map.getRoads()) 
             r.advance(time);
         
+        for (TrafficSimObserver o : observers) {
+            o.onAdvance(map, Collections.unmodifiableCollection(eventQueue), time);
+        }
     }
 
     public void reset() {

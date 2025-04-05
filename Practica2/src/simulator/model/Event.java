@@ -14,7 +14,7 @@ public abstract class Event implements Comparable<Event> {
 		this._time_stamp = _counter++;
 	}
 
-	int getTime() {
+	public int getTime() {
 		return _time;
 	}
 
