@@ -39,9 +39,7 @@ public class Junction extends SimulatedObject {
         this.greenLightIndex = -1; //De inicio todos los semaforos estan en rojo 
         this.lastSwitchingTime = 0;
     }
-    
-    
-   
+      
     public void addIncomingRoad(Road r) {
         if (r.getDest() != this)
             throw new IllegalArgumentException("El destino de la carretera entrante debe ser este cruce.");
@@ -118,4 +116,48 @@ public class Junction extends SimulatedObject {
         
         return jo;
     }
+    
+    // Getters añadidos
+    public List<Road> getIncomingRoads() {
+        return incomingRoads;
+    }
+
+    public Map<Junction, Road> getOutgoingRoads() {
+        return outgoingRoads;
+    }
+
+    public List<List<Vehicle>> getQueues() {
+        return queues;
+    }
+
+    public Map<Road, List<Vehicle>> getRoadToQueueMap() {
+        return roadToQueueMap;
+    }
+
+    public int getGreenLightIndex() {
+        return greenLightIndex;
+    }
+
+    public int getLastSwitchingTime() {
+        return lastSwitchingTime;
+    }
+
+    public LightSwitchingStrategy getLightSwitchingStrategy() {
+        return lsStrategy;
+    }
+
+    public DequeuingStrategy getDequeuingStrategy() {
+        return dqStrategy;
+    }
+
+    public int getXCoor() {
+        return xCoor;
+    }
+
+    public int getYCoor() {
+        return yCoor;
+    }
+}
+    
+    
 }

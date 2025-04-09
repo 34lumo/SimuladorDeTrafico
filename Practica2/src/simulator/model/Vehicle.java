@@ -140,7 +140,12 @@ public class Vehicle extends SimulatedObject {
     public int getTotalCO2() {
         return totalCO2;
     }
-
+    
+    //nuevo get
+    public int getTotalDistance() {
+        return totalDistance;
+    }
+    
     public List<Junction> getItinerary() {
         return itinerary;
     }

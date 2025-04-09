@@ -27,17 +27,16 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 		this.setLayout(new FlowLayout(FlowLayout.LEFT));
 		this.setBorder(BorderFactory.createBevelBorder(1)); // relieve de barra
 
-		etiquetaTiempo = new JLabel("Tiempo: ");
-		campoTiempo = new JLabel("0");
+		etiquetaTiempo = new JLabel("Tiempo: "); //etiqueta
+		campoTiempo = new JLabel("0"); //valor inicial
 
 		mensajeEvento = new JLabel("Listo.");
-		mensajeEvento.setHorizontalAlignment(SwingConstants.LEFT);
-
+		mensajeEvento.setHorizontalAlignment(SwingConstants.LEFT); //mostrara de manera dinamica los textos
+		//añadimos todos los componentes a la barra
 		this.add(etiquetaTiempo);
 		this.add(campoTiempo);
-
-		this.add(new JSeparator(SwingConstants.VERTICAL));
-		this.add(Box.createHorizontalStrut(10));
+		this.add(new JSeparator(SwingConstants.VERTICAL)); //crea espacio breve
+		this.add(Box.createHorizontalStrut(10)); //linea separadora
 		this.add(mensajeEvento);
 	}
 
@@ -54,13 +53,13 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 	}
 
 	@Override
-	public void onReset(RoadMap mapa, Collection<Event> eventos, int tiempo) {
+	public void onReset(RoadMap mapa, Collection<Event> eventos, int tiempo) { //limpia mensajes y reinicia contador timepo (le entrara un 0)
 		campoTiempo.setText(Integer.toString(tiempo));
 		mensajeEvento.setText("Simulación reiniciada.");
 	}
 
 	@Override
-	public void onRegister(RoadMap mapa, Collection<Event> eventos, int tiempo) {
+	public void onRegister(RoadMap mapa, Collection<Event> eventos, int tiempo) { 
 		campoTiempo.setText(Integer.toString(tiempo));
 		mensajeEvento.setText("Observador registrado.");
 	}

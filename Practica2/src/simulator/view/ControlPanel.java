@@ -163,7 +163,7 @@ void actionBotonCO2() {
 				_ctrl.run(1);
 				SwingUtilities.invokeLater(() -> run_sim(n - 1));
 			} catch (Exception e) {
-				JOptionPane.showMessageDialog(this, "Error durante simulación", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this, "Error durante simulación", "Error de progr", JOptionPane.ERROR_MESSAGE);
 				parado = true;
 				deshabilitarBarra(true);
 				return;

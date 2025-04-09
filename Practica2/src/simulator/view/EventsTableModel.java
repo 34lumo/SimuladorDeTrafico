@@ -24,8 +24,7 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 	}
 
 	public void actualizarTabla() {
-		fireTableDataChanged(); //Llama a fireTableDataChanged() que le dice a la JTable que redibuje la tabla, porque han cambiado los datos.
-		//Llama a fireTableDataChanged() que le dice a la JTable que redibuje la tabla, porque han cambiado los datos.
+		fireTableStructureChanged(); //Llama a fireTableDataChanged() que le dice a la JTable que redibuje la tabla, porque han cambiado los datos.
 	}
 
 	public void setEventos(Collection<Event> eventos) {
