@@ -78,7 +78,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	                _ctrl.reset();
 	                _ctrl.loadEvents(in);
 	            } catch (FileNotFoundException e1) {
-	                JOptionPane.showMessageDialog(this, "Error al cargar el archivo: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+	            	JOptionPane.showMessageDialog(this, "Error al cargar el archivo: " + e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 	            }
 	        } else {
 	            JOptionPane.showMessageDialog(this, "Operación cancelada o error al abrir el archivo.");
@@ -186,25 +186,28 @@ void actionBotonCO2() {
 
 	@Override
 	public void onAdvance(RoadMap map, Collection<Event> events, int time) {
-		// TODO Auto-generated method stub
-		
+		mapa = map;
+		tiempo = time;	
 	}
 
 	@Override
 	public void onEventAdded(RoadMap map, Collection<Event> events, Event e, int time) {
-		// TODO Auto-generated method stub
-		
+		mapa = map;
+		tiempo = time;
 	}
 
 	@Override
 	public void onReset(RoadMap map, Collection<Event> events, int time) {
-		// TODO Auto-generated method stub
 		
+		mapa = map;
+		tiempo = time;
 	}
 
 	@Override
 	public void onRegister(RoadMap map, Collection<Event> events, int time) {
-		// TODO Auto-generated method stub
 		
+		mapa = map;
+		tiempo = time;
 	}
+
 }

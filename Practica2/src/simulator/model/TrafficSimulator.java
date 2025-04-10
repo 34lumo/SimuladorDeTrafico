@@ -26,7 +26,7 @@ public class TrafficSimulator implements Observable<TrafficSimObserver> {
                 o.onEventAdded(map, Collections.unmodifiableCollection(eventQueue), e, time);
             }
     }
-    /**
+    /*
      * Avanza la simulación un tick:
      * 1. Incrementa el tiempo en 1.
      * 2. Ejecuta los eventos programados para el tiempo actual.
@@ -73,7 +73,7 @@ public class TrafficSimulator implements Observable<TrafficSimObserver> {
     public void addObserver(TrafficSimObserver o) {
         if (!observers.contains(o)) {
             observers.add(o);
-            o.onRegister(map, Collections.unmodifiableList(events), time);
+            o.onRegister(map,  Collections.unmodifiableCollection(eventQueue), time);
         }
     }
 
