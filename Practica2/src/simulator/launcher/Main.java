@@ -20,6 +20,8 @@ public class Main {
     private static String _mode = "gui";
     private static Factory<Event> _eventsFactory = null;
     private static Integer ticks = _timeLimitDefaultValue;
+	private static boolean gui = true;
+
 
     private static void parseArgs(String[] args) {
         Options cmdLineOptions = buildOptions();
@@ -85,6 +87,8 @@ public class Main {
                 System.err.println("Error: invalid mode '" + _mode + "'. Valid modes are 'gui' and 'console'.");
                 System.exit(1);
             }
+        } else {
+            _mode = "console"; // <-- CAMBIA el valor por defecto aquí
         }
     }
 
